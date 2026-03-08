@@ -371,7 +371,7 @@ const TRANSLATIONS: Record<string, {
 export const ApiKeyGate: React.FC<ApiKeyGateProps> = ({ onSave, selectedLanguage = 'English' }) => {
   const [inputKey, setInputKey] = useState('');
   const [error, setError] = useState<string | null>(null);
-  const [showTutorial, setShowTutorial] = useState(true); // 自動彈出教學
+  const [showTutorial, setShowTutorial] = useState(false); // 不自動彈出教學
   const [showGuideImage, setShowGuideImage] = useState(false); // 圖示解說 Modal
 
   const t = TRANSLATIONS[selectedLanguage] || TRANSLATIONS['English'];
