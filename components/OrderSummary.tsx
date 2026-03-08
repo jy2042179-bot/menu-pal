@@ -256,7 +256,7 @@ export const OrderSummary: React.FC<OrderSummaryProps> = ({
                                     <button onClick={() => setPersonCount(personCount + 1)} className="w-10 h-10 rounded-lg flex items-center justify-center font-bold" style={{ background: 'var(--brand-gradient)', color: 'white' }}>+</button>
                                 </div>
 
-                                <div className="mt-2 p-2 rounded-lg flex justify-between items-center" style={{ background: 'rgba(255,107,43,0.06)', border: '1px solid rgba(255,107,43,0.15)' }}>
+                                <div className="mt-2 p-2 rounded-xl flex justify-between items-center" style={{ background: 'rgba(236,72,153,0.06)', border: '1px solid rgba(236,72,153,0.15)' }}>
                                     <span className="text-xs font-bold" style={{ color: 'var(--text-secondary)' }}>Per Person:</span>
                                     <div className="text-right">
                                         <span className="block text-sm font-extrabold" style={{ color: 'var(--text-primary)' }}>{splitPriceOriginal} {menuData.originalCurrency}</span>

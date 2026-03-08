@@ -353,7 +353,7 @@ export const OrderingPage: React.FC<OrderingPageProps> = ({
                                                 )}
                                                 <div className="flex flex-wrap gap-1 mb-2">
                                                     {item.dietary_tags?.map(tag => (
-                                                        <span key={tag} className="text-[10px] bg-white text-amber-700 border border-amber-200 px-1.5 py-0.5 rounded">{tag}</span>
+                                                        <span key={tag} className="text-[10px] bg-amber-50 text-amber-600 border border-amber-200 px-1.5 py-0.5 rounded-full font-bold">{tag}</span>
                                                     ))}
                                                     {item.allergens?.map(alg => (
                                                         <span key={alg} className={`text-[10px] border px-1.5 py-0.5 rounded ${excludedAllergens.includes(alg) ? 'bg-red-600 text-white border-red-600' : 'bg-white text-red-400 border-red-200'}`}>
@@ -364,31 +364,31 @@ export const OrderingPage: React.FC<OrderingPageProps> = ({
 
                                                 {/* Variants/Options Display */}
                                                 {item.options && item.options.length > 0 && (
-                                                    <div className="mt-2 border-t border-amber-200 pt-2">
-                                                        <p className="text-[10px] uppercase font-bold text-amber-500 mb-2">Available Options</p>
+                                                    <div className="mt-2 border-t border-pink-100 pt-2">
+                                                        <p className="text-[10px] uppercase font-bold text-pink-400 mb-2">Available Options</p>
                                                         <div className="space-y-2">
                                                             {item.options.map((opt, idx) => {
                                                                 const variantItem = createVariantItem(item, opt, idx);
                                                                 const vQty = cart[variantItem.id]?.quantity || 0;
 
                                                                 return (
-                                                                    <div key={idx} className="flex justify-between items-center bg-white/60 rounded-lg p-2 border border-amber-100">
+                                                                    <div key={idx} className="flex justify-between items-center bg-pink-50/60 rounded-xl p-2 border border-pink-100">
                                                                         <div className="flex-1 mr-2">
-                                                                            <div className="text-xs font-bold text-amber-900">{opt.name}</div>
-                                                                            <div className="text-[10px] font-mono text-amber-700">{opt.price} {menuData.originalCurrency}</div>
+                                                                            <div className="text-xs font-bold text-stone-700">{opt.name}</div>
+                                                                            <div className="text-[10px] font-mono text-pink-500">{opt.price} {menuData.originalCurrency}</div>
                                                                         </div>
-                                                                        <div className="flex items-center gap-2 bg-white rounded-lg shadow-sm border border-amber-200 p-0.5">
+                                                                        <div className="flex items-center gap-2 bg-white rounded-xl shadow-sm border border-pink-100 p-0.5">
                                                                             <button
                                                                                 onClick={() => onUpdateCart(variantItem, -1)}
                                                                                 disabled={vQty === 0}
-                                                                                className={`w-6 h-6 flex items-center justify-center rounded-md ${vQty > 0 ? 'bg-amber-100 text-amber-800' : 'text-gray-300'}`}
+                                                                                className={`w-6 h-6 flex items-center justify-center rounded-lg ${vQty > 0 ? 'bg-pink-100 text-pink-600' : 'text-gray-300'}`}
                                                                             >
                                                                                 <Minus size={12} />
                                                                             </button>
-                                                                            <span className={`w-4 text-center text-xs font-bold ${vQty > 0 ? 'text-amber-900' : 'text-gray-300'}`}>{vQty}</span>
+                                                                            <span className={`w-4 text-center text-xs font-bold ${vQty > 0 ? 'text-pink-700' : 'text-gray-300'}`}>{vQty}</span>
                                                                             <button
                                                                                 onClick={() => onUpdateCart(variantItem, 1)}
-                                                                                className="w-6 h-6 flex items-center justify-center rounded-md bg-amber-500 text-white hover:bg-amber-600"
+                                                                                className="w-6 h-6 flex items-center justify-center rounded-lg bg-gradient-to-r from-pink-500 to-fuchsia-500 text-white"
                                                                             >
                                                                                 <Plus size={12} />
                                                                             </button>
@@ -401,14 +401,14 @@ export const OrderingPage: React.FC<OrderingPageProps> = ({
                                                 )}
 
                                                 {explanations[item.id] ? (
-                                                    <div className="mt-2 text-xs text-blue-700 bg-blue-50 p-2 rounded border border-blue-100">
+                                                    <div className="mt-2 text-xs text-fuchsia-700 bg-fuchsia-50 p-2 rounded-xl border border-fuchsia-100">
                                                         💡 {explanations[item.id]}
                                                     </div>
                                                 ) : (
                                                     <button
                                                         onClick={() => handleExplain(item)}
                                                         disabled={loadingExplanation === item.id}
-                                                        className="text-xs font-bold text-amber-600 hover:text-amber-800 flex items-center gap-1 mt-2 transition-colors"
+                                                        className="text-xs font-bold text-pink-500 hover:text-pink-700 flex items-center gap-1 mt-2 transition-colors"
                                                     >
                                                         {loadingExplanation === item.id ? 'Thinking...' : <><Info size={12} /> Explain</>}
                                                     </button>
@@ -465,7 +465,7 @@ export const OrderingPage: React.FC<OrderingPageProps> = ({
                 animate={{ scale: 1 }}
                 transition={{ delay: 0.5, type: 'spring' }}
                 onClick={() => setShowPhrases(true)}
-                className="fixed bottom-24 right-4 z-30 w-14 h-14 bg-gradient-to-br from-blue-500 to-indigo-600 text-white rounded-full shadow-lg shadow-blue-300/50 flex items-center justify-center hover:scale-110 active:scale-95 transition-transform"
+                className="fixed bottom-24 right-4 z-30 w-14 h-14 bg-gradient-to-br from-pink-500 to-fuchsia-500 text-white rounded-full shadow-lg shadow-pink-300/50 flex items-center justify-center hover:scale-110 active:scale-95 transition-transform"
                 title="Restaurant Phrases"
             >
                 <MessageCircle size={24} />
