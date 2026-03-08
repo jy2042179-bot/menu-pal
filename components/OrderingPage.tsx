@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { ArrowLeft, Minus, Plus, AlertTriangle, Info, Filter, X, Check, Zap, Volume2, MessageCircle, LayoutGrid, List } from 'lucide-react';
+import { ArrowLeft, Minus, Plus, Warning, Info, Funnel, X, Check, Lightning, SpeakerHigh, ChatCircle, SquaresFour, List } from '@phosphor-icons/react';
 import { MenuItem, MenuData, Cart, TargetLanguage, CartItem, MenuOption } from '../types';
 import { explainDish } from '../services/geminiService';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -189,7 +189,7 @@ export const OrderingPage: React.FC<OrderingPageProps> = ({
                             <p className="text-xs" style={{ color: 'var(--text-tertiary)' }}>{menuData.items.length} dishes</p>
                             {menuData.usageMetadata && (
                                 <div className="flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-mono" style={{ background: 'var(--glass-bg)', color: 'var(--text-tertiary)' }} title={`Prompt: ${menuData.usageMetadata.promptTokenCount} | Output: ${menuData.usageMetadata.candidatesTokenCount}`}>
-                                    <Zap size={10} className="text-yellow-500 fill-yellow-500" />
+                                    <Lightning size={10} weight="fill" className="text-yellow-500" />
                                     {menuData.usageMetadata.totalTokenCount}
                                 </div>
                             )}
@@ -201,12 +201,12 @@ export const OrderingPage: React.FC<OrderingPageProps> = ({
                     <button onClick={toggleViewMode}
                         className="p-2 rounded-xl transition-colors"
                         style={{ background: 'var(--glass-bg)', border: '1px solid var(--glass-border)', color: 'var(--text-secondary)' }}>
-                        {viewMode === 'list' ? <LayoutGrid size={20} /> : <List size={20} />}
+                        {viewMode === 'list' ? <SquaresFour size={20} weight="bold" /> : <List size={20} weight="bold" />}
                     </button>
                     <button onClick={() => setIsFilterOpen(true)}
                         className="p-2 rounded-xl transition-colors"
                         style={{ background: excludedAllergens.length > 0 ? 'var(--danger-bg)' : 'var(--glass-bg)', border: `1px solid ${excludedAllergens.length > 0 ? 'rgba(239,68,68,0.2)' : 'var(--glass-border)'}`, color: excludedAllergens.length > 0 ? 'var(--danger-color)' : 'var(--text-secondary)' }}>
-                        <Filter size={20} />
+                        <Funnel size={20} weight="bold" />
                     </button>
                 </div>
 
@@ -260,7 +260,7 @@ export const OrderingPage: React.FC<OrderingPageProps> = ({
                                             {/* Name + Allergen inline */}
                                             <h4 className="font-bold text-xs leading-tight mb-0.5 line-clamp-2 pr-5" style={{ color: 'var(--text-primary)' }}>
                                                 {item.allergy_warning && (
-                                                    <AlertTriangle size={11} className="inline-block mr-0.5 -mt-0.5 shrink-0" style={{ color: 'var(--danger-color)' }} />
+                                                    <Warning size={11} className="inline-block mr-0.5 -mt-0.5 shrink-0" style={{ color: 'var(--danger-color)' }} />
                                                 )}
                                                 {item.translatedName}
                                             </h4>
@@ -325,7 +325,7 @@ export const OrderingPage: React.FC<OrderingPageProps> = ({
                                                     <h4 className="font-bold text-base leading-tight" style={{ color: 'var(--text-primary)' }}>{item.translatedName}</h4>
                                                     {(item.allergy_warning) && (
                                                         <span className="shrink-0 text-[10px] font-bold px-2 py-1 rounded-full flex items-center gap-1" style={{ background: 'var(--danger-bg)', color: 'var(--danger-color)' }}>
-                                                            <AlertTriangle size={10} /> Allergen
+                                                            <Warning size={10} /> Allergen
                                                         </span>
                                                     )}
                                                 </div>
@@ -340,7 +340,7 @@ export const OrderingPage: React.FC<OrderingPageProps> = ({
                                                             className="shrink-0 w-7 h-7 rounded-full flex items-center justify-center transition-all"
                                                             style={speakingId === `item-${item.id}` ? { background: 'var(--info-color)', color: 'white' } : { background: 'var(--info-bg)', color: 'var(--info-color)' }}
                                                             title="Listen to pronunciation">
-                                                            <Volume2 size={14} />
+                                                            <SpeakerHigh size={14} weight="bold" />
                                                         </button>
                                                     )}
                                                 </div>
@@ -468,7 +468,7 @@ export const OrderingPage: React.FC<OrderingPageProps> = ({
                 className="fixed bottom-24 right-4 z-30 w-14 h-14 bg-gradient-to-br from-pink-500 to-fuchsia-500 text-white rounded-full shadow-lg shadow-pink-300/50 flex items-center justify-center hover:scale-110 active:scale-95 transition-transform"
                 title="Restaurant Phrases"
             >
-                <MessageCircle size={24} />
+                <ChatCircle size={24} weight="duotone" />
             </motion.button>
 
             {/* 🗣️ Restaurant Phrases Panel */}
@@ -534,7 +534,7 @@ export const OrderingPage: React.FC<OrderingPageProps> = ({
                     >
                         <div className="flex justify-between items-center mb-4">
                             <h3 className="text-xl font-extrabold flex items-center gap-2" style={{ color: 'var(--text-primary)' }}>
-                                <AlertTriangle className="text-red-400" /> {t.title}
+                                <Warning className="text-red-400" /> {t.title}
                             </h3>
                             <button onClick={() => setIsFilterOpen(false)} className="p-2 rounded-full" style={{ background: 'var(--glass-bg)' }}><X size={20} style={{ color: 'var(--text-tertiary)' }} /></button>
                         </div>

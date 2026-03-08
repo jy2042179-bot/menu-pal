@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Home, Users, Download } from 'lucide-react';
+import { X, House, Users, DownloadSimple } from '@phosphor-icons/react';
 import { Cart, MenuData, CartItem } from '../types';
 import { SausageDogLogo } from './DachshundAssets';
 import { AdPopup } from './AdPopup';
@@ -271,10 +271,10 @@ export const OrderSummary: React.FC<OrderSummaryProps> = ({
                 {/* Fixed Footer Actions */}
                 <div className="p-4 grid grid-cols-2 gap-3 safe-area-bottom shrink-0" style={{ background: 'var(--header-bg)', backdropFilter: 'blur(20px)', borderTop: '1px solid var(--glass-border)' }}>
                     <button onClick={handleShare} className="flex flex-col items-center justify-center p-3 rounded-xl font-bold gap-1" style={{ background: 'var(--info-bg)', color: 'var(--info-color)' }}>
-                        <Download size={20} /> <span className="text-xs">Receipt Img</span>
+                        <DownloadSimple size={20} weight="bold" /> <span className="text-xs">Receipt Img</span>
                     </button>
                     <button onClick={handleFinish} className="flex flex-col items-center justify-center p-3 rounded-xl font-bold gap-1 shadow-md" style={{ background: 'var(--brand-gradient)', color: 'white' }}>
-                        <Home size={20} /> <span className="text-xs">Finish Order</span>
+                        <House size={20} weight="bold" /> <span className="text-xs">Finish Order</span>
                     </button>
                 </div>
             </div>

@@ -1,7 +1,7 @@
 'use client';
 import React, { useRef, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { ChevronDown } from 'lucide-react';
+import { CaretDown } from '@phosphor-icons/react';
 import { TargetLanguage } from '../types';
 import { UI_LANGUAGE_OPTIONS } from '../i18n';
 
@@ -137,7 +137,7 @@ export const LanguageGate: React.FC<LanguageGateProps> = ({ onSelectLanguage }) 
                             className="absolute bottom-2 left-1/2 -translate-x-1/2 pointer-events-none"
                         >
                             <div className="bg-pink-500/90 text-white rounded-full p-2 shadow-pink">
-                                <ChevronDown size={20} />
+                                <CaretDown size={20} weight="bold" />
                             </div>
                         </motion.div>
                     )}

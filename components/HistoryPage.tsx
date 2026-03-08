@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowLeft, Trash2, Calendar, ShoppingBag, MapPin, Receipt, Share2, X } from 'lucide-react';
+import { ArrowLeft, Trash, Calendar, Bag, MapPin, Receipt, ShareNetwork, X } from '@phosphor-icons/react';
 import { HistoryRecord, CartItem } from '../types';
 import { SausageDogLogo, PawPrint } from './DachshundAssets';
 import html2canvas from 'html2canvas';
@@ -83,7 +83,7 @@ export const HistoryPage: React.FC<HistoryPageProps> = ({ history, onBack, onDel
                                 </div>
                                 <div className="flex gap-1">
                                     <button onClick={() => onDelete(record.id)} className="p-2 rounded-full transition-colors" style={{ background: 'var(--danger-bg)', color: 'var(--danger-color)' }}>
-                                        <Trash2 size={16} />
+                                        <Trash size={16} weight="bold" />
                                     </button>
                                 </div>
                             </div>
@@ -230,7 +230,7 @@ export const HistoryPage: React.FC<HistoryPageProps> = ({ history, onBack, onDel
                             className="w-full font-bold py-4 mt-4 rounded-xl flex items-center justify-center gap-2 shadow-lg"
                             style={{ background: 'var(--brand-gradient)', color: 'white' }}
                         >
-                            <Share2 size={20} /> Save for Stories
+                            <ShareNetwork size={20} weight="bold" /> Save for Stories
                         </button>
                     </div>
                 </div>

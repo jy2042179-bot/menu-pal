@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Key, ExternalLink, ArrowRight, ShieldCheck, AlertCircle, ChevronDown, ChevronUp, X, HelpCircle, Image as ImageIcon } from 'lucide-react';
+import { Key, ArrowRight, ShieldCheck, X, ArrowSquareOut, WarningCircle, Question, Image as ImageIcon } from '@phosphor-icons/react';
 import { SausageDogLogo, PawPrint } from './DachshundAssets';
 import toast from 'react-hot-toast';
 
@@ -441,7 +441,7 @@ export const ApiKeyGate: React.FC<ApiKeyGateProps> = ({ onSave, selectedLanguage
             </div>
             {error && (
               <div className="flex items-center gap-1 text-red-500 text-xs font-bold animate-pulse">
-                <AlertCircle size={12} /> {error}
+                <WarningCircle size={12} weight="bold" /> {error}
               </div>
             )}
           </div>
@@ -466,7 +466,7 @@ export const ApiKeyGate: React.FC<ApiKeyGateProps> = ({ onSave, selectedLanguage
               </button>
 
               <div className="text-center mb-5 mt-2">
-                <HelpCircle className="w-12 h-12 text-blue-500 mx-auto mb-2 opacity-90" />
+                <Question className="w-12 h-12 text-pink-400 mx-auto mb-2 opacity-90" weight="duotone" />
                 <h2 className="text-xl font-black text-gray-800">{t.tutorialTitle}</h2>
               </div>
 
@@ -501,7 +501,7 @@ export const ApiKeyGate: React.FC<ApiKeyGateProps> = ({ onSave, selectedLanguage
                   rel="noopener noreferrer"
                   className="w-full relative z-[60] inline-flex items-center justify-center gap-2 text-sm font-black text-blue-600 bg-blue-50 border-2 border-blue-200 hover:bg-blue-600 hover:text-white hover:border-blue-600 py-3 rounded-xl transition-all shadow-sm active:scale-95 group select-none pointer-events-auto"
                 >
-                  {t.getKeyLink} <ExternalLink size={16} className="group-hover:translate-x-1 transition-transform" />
+                  {t.getKeyLink} <ArrowSquareOut size={16} weight="bold" className="group-hover:translate-x-1 transition-transform" />
                 </a>
               </div>
             </div>
