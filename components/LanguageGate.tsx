@@ -49,21 +49,22 @@ export const LanguageGate: React.FC<LanguageGateProps> = ({ onSelectLanguage }) 
     }, []);
 
     return (
-        <div className="flex flex-col items-center justify-start min-h-screen h-screen p-6 pb-12 bg-gradient-to-b from-sausage-50 to-orange-50">
+        <div className="flex flex-col items-center justify-start min-h-screen h-screen p-4 pb-8 bg-gradient-to-b from-pink-50 via-fuchsia-50 to-pink-100">
             <motion.div
-                initial={{ scale: 0.9, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                className="w-full max-w-lg bg-white rounded-3xl shadow-xl text-center my-4 flex flex-col overflow-hidden"
-                style={{ maxHeight: 'calc(100vh - 80px)' }}
+                initial={{ scale: 0.9, opacity: 0, y: 20 }}
+                animate={{ scale: 1, opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, ease: [0.34, 1.56, 0.64, 1] }}
+                className="w-full max-w-lg bg-white/90 backdrop-blur-sm rounded-3xl shadow-pink text-center my-4 flex flex-col overflow-hidden border border-pink-100"
+                style={{ maxHeight: 'calc(100vh - 64px)' }}
             >
                 {/* 固定的頭部 */}
-                <div className="p-6 sm:p-8 pb-2 shrink-0">
+                <div className="p-6 sm:p-8 pb-3 shrink-0">
                     {/* Logo */}
                     <motion.div
-                        initial={{ y: -20, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        transition={{ delay: 0.1 }}
-                        className="w-20 h-20 bg-gradient-to-br from-sausage-400 to-orange-400 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg"
+                        initial={{ y: -20, opacity: 0, scale: 0.8 }}
+                        animate={{ y: 0, opacity: 1, scale: 1 }}
+                        transition={{ delay: 0.1, type: 'spring', bounce: 0.5 }}
+                        className="w-20 h-20 bg-gradient-to-br from-pink-400 to-fuchsia-400 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-pink"
                     >
                         <span className="text-4xl">🌭</span>
                     </motion.div>
@@ -73,13 +74,13 @@ export const LanguageGate: React.FC<LanguageGateProps> = ({ onSelectLanguage }) 
                         animate={{ y: 0, opacity: 1 }}
                         transition={{ delay: 0.2 }}
                     >
-                        <h1 className="text-3xl font-extrabold text-gray-900 tracking-tight mb-2">
+                        <h1 className="text-3xl font-bold text-stone-700 tracking-tight mb-2">
                             SausageMenuPal
                         </h1>
-                        <p className="text-gray-500 text-lg">
+                        <p className="text-stone-500 text-base">
                             Please select your language
                         </p>
-                        <p className="text-gray-400 text-sm mt-1">
+                        <p className="text-stone-400 text-sm mt-1">
                             請選擇您的語言
                         </p>
                     </motion.div>
@@ -89,7 +90,7 @@ export const LanguageGate: React.FC<LanguageGateProps> = ({ onSelectLanguage }) 
                 <div className="relative flex-1 min-h-0">
                     <div
                         ref={scrollRef}
-                        className="overflow-y-auto px-6 sm:px-8 pb-6 pt-4"
+                        className="overflow-y-auto px-6 sm:px-8 pb-6 pt-3"
                         style={{ maxHeight: '100%' }}
                     >
                         <motion.div
@@ -105,12 +106,12 @@ export const LanguageGate: React.FC<LanguageGateProps> = ({ onSelectLanguage }) 
                                     animate={{ scale: 1, opacity: 1 }}
                                     transition={{ delay: 0.3 + index * 0.03 }}
                                     onClick={() => handleSelect(option.value)}
-                                    className="flex flex-col items-center gap-2 p-4 bg-gray-50 hover:bg-sausage-50 border-2 border-transparent hover:border-sausage-400 rounded-xl transition-all duration-200 group active:scale-95"
+                                    className="flex flex-col items-center gap-2 p-4 bg-pink-50/60 hover:bg-pink-100 border-2 border-transparent hover:border-pink-400 rounded-2xl transition-all duration-200 group active:scale-95 shadow-sm"
                                 >
                                     <span className="text-3xl group-hover:scale-110 transition-transform">
                                         {option.flag}
                                     </span>
-                                    <span className="text-sm font-medium text-gray-700 group-hover:text-sausage-700">
+                                    <span className="text-sm font-medium text-stone-600 group-hover:text-pink-600">
                                         {option.label}
                                     </span>
                                 </motion.button>
@@ -121,7 +122,7 @@ export const LanguageGate: React.FC<LanguageGateProps> = ({ onSelectLanguage }) 
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ delay: 0.6 }}
-                            className="text-xs text-gray-400 mt-6"
+                            className="text-xs text-stone-400 mt-6"
                         >
                             You can change the language anytime in the app.
                         </motion.p>
@@ -135,7 +136,7 @@ export const LanguageGate: React.FC<LanguageGateProps> = ({ onSelectLanguage }) 
                             transition={{ y: { repeat: Infinity, duration: 1.5 } }}
                             className="absolute bottom-2 left-1/2 -translate-x-1/2 pointer-events-none"
                         >
-                            <div className="bg-sausage-600/90 text-white rounded-full p-2 shadow-lg">
+                            <div className="bg-pink-500/90 text-white rounded-full p-2 shadow-pink">
                                 <ChevronDown size={20} />
                             </div>
                         </motion.div>

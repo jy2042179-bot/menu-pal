@@ -396,15 +396,15 @@ export const ApiKeyGate: React.FC<ApiKeyGateProps> = ({ onSave, selectedLanguage
   };
 
   return (
-    <div className="fixed inset-0 z-[100] bg-sausage-50 flex flex-col items-center justify-center p-6 relative overflow-hidden">
-      <PawPrint className="absolute top-10 left-[-20px] w-32 h-32 text-sausage-100 rotate-[-15deg]" />
-      <PawPrint className="absolute bottom-10 right-[-20px] w-48 h-48 text-sausage-100 rotate-[15deg]" />
+    <div className="fixed inset-0 z-[100] bg-gradient-to-b from-pink-50 via-fuchsia-50 to-pink-100 flex flex-col items-center justify-center p-6 relative overflow-hidden">
+      <PawPrint className="absolute top-10 left-[-20px] w-32 h-32 text-pink-200 rotate-[-15deg]" />
+      <PawPrint className="absolute bottom-10 right-[-20px] w-48 h-48 text-fuchsia-100 rotate-[15deg]" />
 
-      <div className="w-full max-w-md bg-white rounded-3xl shadow-2xl p-8 border-4 border-sausage-100 relative z-10 animate-in fade-in zoom-in duration-300 max-h-[90vh] overflow-y-auto">
+      <div className="w-full max-w-md bg-white/90 backdrop-blur-sm rounded-3xl shadow-pink-md p-8 border-2 border-pink-100 relative z-10 animate-fade-in max-h-[90vh] overflow-y-auto">
 
         <div className="flex flex-col items-center text-center mb-6">
           <SausageDogLogo className="w-32 h-20 mb-4" />
-          <h1 className="text-3xl font-black text-sausage-900 mb-2">{t.welcome}</h1>
+          <h1 className="text-3xl font-bold text-stone-700 mb-2">{t.welcome}</h1>
           <p className="text-gray-500 text-sm leading-relaxed">
             {t.description}
           </p>
@@ -412,7 +412,7 @@ export const ApiKeyGate: React.FC<ApiKeyGateProps> = ({ onSave, selectedLanguage
 
         <form onSubmit={handleSubmit} className="space-y-5">
           <div className="space-y-2">
-            <label className="block text-xs font-bold text-sausage-800 uppercase tracking-wider ml-1">
+            <label className="block text-xs font-bold text-pink-600 uppercase tracking-wider ml-1">
               {t.yourApiKey}
             </label>
             <div className="relative">
@@ -427,7 +427,7 @@ export const ApiKeyGate: React.FC<ApiKeyGateProps> = ({ onSave, selectedLanguage
                   setError(null);
                 }}
                 placeholder={t.placeholder}
-                className={`w-full pl-10 pr-12 py-3 bg-gray-50 border-2 rounded-xl focus:outline-none focus:ring-4 focus:ring-sausage-100 transition-all font-mono text-sm ${error ? 'border-red-400 focus:border-red-400' : 'border-gray-200 focus:border-sausage-500'}`}
+                className={`w-full pl-10 pr-12 py-3 bg-pink-50/50 border-2 rounded-xl focus:outline-none focus:ring-4 focus:ring-pink-100 transition-all font-mono text-sm ${error ? 'border-red-400 focus:border-red-400' : 'border-pink-100 focus:border-pink-400'}`}
               />
               <button
                 type="button"
@@ -448,7 +448,7 @@ export const ApiKeyGate: React.FC<ApiKeyGateProps> = ({ onSave, selectedLanguage
 
           <button
             type="submit"
-            className="w-full bg-sausage-600 hover:bg-sausage-700 text-white py-4 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transition-all transform active:scale-95 flex items-center justify-center gap-2"
+            className="w-full bg-gradient-to-r from-pink-500 to-fuchsia-500 hover:from-pink-600 hover:to-fuchsia-600 text-white py-4 rounded-xl font-bold text-lg shadow-pink hover:shadow-pink-md transition-all transform active:scale-95 flex items-center justify-center gap-2"
           >
             {t.startBtn} <ArrowRight size={20} />
           </button>
