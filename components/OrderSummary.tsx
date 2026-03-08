@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { X, House, Users, DownloadSimple } from '@phosphor-icons/react';
 import { Cart, MenuData, CartItem } from '../types';
 import { SausageDogLogo } from './DachshundAssets';
-import { AdPopup } from './AdPopup';
+
 import html2canvas from 'html2canvas';
 import toast from 'react-hot-toast';
 
@@ -27,32 +27,9 @@ export const OrderSummary: React.FC<OrderSummaryProps> = ({
 }) => {
     const [personCount, setPersonCount] = useState(1);
     const [paidBy, setPaidBy] = useState('');
-    const [showAd, setShowAd] = useState(false);
-    const [pendingAction, setPendingAction] = useState<'close' | 'finish' | null>(null);
     const cartItems = Object.values(cart) as CartItem[];
-
-    // 處理關閉：先顯示廣告
-    const handleClose = () => {
-        setPendingAction('close');
-        setShowAd(true);
-    };
-
-    // 處理完成訂單：先顯示廣告
-    const handleFinish = () => {
-        setPendingAction('finish');
-        setShowAd(true);
-    };
-
-    // 廣告關閉後執行對應動作
-    const handleAdClose = () => {
-        setShowAd(false);
-        if (pendingAction === 'close') {
-            onClose();
-        } else if (pendingAction === 'finish') {
-            onFinish(paidBy);
-        }
-        setPendingAction(null);
-    };
+    const handleClose = () => onClose();
+    const handleFinish = () => onFinish(paidBy);
 
     const totalPrice = cartItems.reduce((sum, i) => sum + (i.item.price * i.quantity), 0);
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X, Percent, Receipt, LogOut, Key, ExternalLink } from 'lucide-react';
+import { X, Percent, Receipt, Key, ArrowSquareOut, Trash } from '@phosphor-icons/react';
 import { toast } from 'react-hot-toast';
 
 interface SettingsModalProps {
@@ -134,46 +134,6 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
   const [taxRate, setTaxRate] = useState(currentTax.toString());
   const [serviceRate, setServiceRate] = useState(currentService.toString());
   const [apiKey, setApiKey] = useState('');
-  const [gumroadEmail, setGumroadEmail] = useState('');
-  const [isRestoring, setIsRestoring] = useState(false);
-
-  const handleRestoreGumroad = async () => {
-    if (!gumroadEmail.includes('@')) {
-      toast.error(t.errEmail);
-      return;
-    }
-    const currentGoogleEmail = localStorage.getItem('smp_user_email');
-    if (!currentGoogleEmail) {
-      toast.error(t.errLogin);
-      return;
-    }
-
-    setIsRestoring(true);
-    const toastId = toast.loading(t.verifying);
-    try {
-      const res = await fetch('/api/restore-purchase', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          gumroadEmail: gumroadEmail.trim(),
-          currentGoogleEmail
-        })
-      });
-      const data = await res.json();
-      if (data.success) {
-        toast.success(data.message, { id: toastId });
-        localStorage.setItem('is_pro', 'true');
-        // 自動重整頁面以套用 PRO 狀態
-        setTimeout(() => window.location.reload(), 1500);
-      } else {
-        toast.error(data.message || t.notFound, { id: toastId });
-      }
-    } catch (e: any) {
-      toast.error(t.connErr, { id: toastId });
-    } finally {
-      setIsRestoring(false);
-    }
-  };
 
   useEffect(() => {
     setTaxRate(currentTax.toString());
@@ -234,35 +194,20 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
               <span>{t.apiHint}</span>
               <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noreferrer"
                 className="inline-flex items-center gap-1 font-bold transition-colors" style={{ color: 'var(--brand-primary)' }}>
-                {t.apiLink} <ExternalLink size={12} />
+                {t.apiLink} <ArrowSquareOut size={12} weight="bold" />
               </a>
             </p>
             <input type="password" placeholder="AIzaSy..." value={apiKey} onChange={(e) => setApiKey(e.target.value)}
               className="w-full p-2 rounded-lg focus:outline-none text-sm font-mono" style={{ background: 'var(--input-bg)', border: '1px solid var(--border-input)', color: 'var(--text-primary)' }} />
           </div>
 
-          {/* Legacy Purchase Restore */}
-          <div className="space-y-4 pt-4" style={{ borderTop: '1px solid var(--glass-border)' }}>
-            <div className="flex items-center gap-2 font-bold text-sm" style={{ color: 'var(--text-secondary)' }}>
-              <Key size={16} /> {t.restoreTitle}
-            </div>
-            <p className="text-xs" style={{ color: 'var(--text-tertiary)' }}>{t.restoreHint}</p>
-            <div className="flex gap-2">
-              <input type="email" placeholder="Gumroad Email" value={gumroadEmail} onChange={(e) => setGumroadEmail(e.target.value)}
-                className="flex-1 p-2 rounded-lg focus:outline-none text-sm" style={{ background: 'var(--input-bg)', border: '1px solid var(--border-input)', color: 'var(--text-primary)' }} />
-              <button onClick={handleRestoreGumroad} disabled={isRestoring || !gumroadEmail}
-                className="px-4 py-2 rounded-lg font-bold text-sm transition-colors disabled:opacity-50" style={{ background: 'var(--glass-bg)', color: 'var(--text-primary)' }}>
-                {t.verifyBtn}
-              </button>
-            </div>
-          </div>
-
           <div className="flex flex-col gap-3 pt-2">
             <button onClick={() => {
-              if (apiKey) localStorage.setItem('gemini_api_key', apiKey.trim());
+              const trimmedKey = apiKey.trim();
+              if (trimmedKey) localStorage.setItem('gemini_api_key', trimmedKey);
               onSave(Number(taxRate) || 0, Number(serviceRate) || 0);
               onClose();
-              if (apiKey !== localStorage.getItem('gemini_api_key')) window.location.reload();
+              if (trimmedKey && trimmedKey !== localStorage.getItem('gemini_api_key')) window.location.reload();
             }}
               className="w-full py-3 rounded-xl font-bold shadow-md transition-transform active:scale-95"
               style={{ background: 'var(--brand-gradient)', color: 'white' }}>
@@ -270,10 +215,10 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
             </button>
 
             {onResetApp && (
-              <button onClick={() => { if (confirm(t.logoutAsk)) onResetApp(); }}
+              <button onClick={() => { if (confirm('清除 API Key 並重新設定？\nReset API Key?')) onResetApp(); }}
                 className="w-full py-3 rounded-xl font-bold transition-colors flex items-center justify-center gap-2 text-sm"
                 style={{ background: 'var(--danger-bg)', color: 'var(--danger-color)' }}>
-                <LogOut size={16} /> {t.logoutBtn}
+                <Trash size={16} weight="bold" /> 重設 API Key
               </button>
             )}
           </div>

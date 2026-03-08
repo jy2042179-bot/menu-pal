@@ -11,11 +11,16 @@ import { HistoryPage } from './components/HistoryPage';
 import { SettingsModal } from './components/SettingsModal';
 import { MenuProcessing } from './components/MenuProcessing';
 import { LanguageGate } from './components/LanguageGate';
+import { GoogleAuthGate, GoogleUser } from './components/GoogleAuthGate';
 import { ApiKeyGate } from './components/ApiKeyGate';
+import { UsageExhaustedModal } from './components/UsageLimitBanner';
+import { Paywall } from './components/Paywall';
+import { useUsageLimit } from './hooks/useUsageLimit';
 import { MenuLibraryPage } from './components/MenuLibraryPage';
 import { SaveMenuModal } from './components/SaveMenuModal';
 import { useMenuLibrary } from './hooks/useMenuLibrary';
 import { RestaurantPhrases } from './components/RestaurantPhrases';
+import { Onboarding } from './components/Onboarding';
 
 // Types & Constants
 import { MenuData, Cart, AppState, HistoryRecord, TargetLanguage, CartItem, MenuItem, GeoLocation, SavedMenu } from './types';
@@ -23,6 +28,10 @@ import { parseMenuImage, parseMenuPageByPage } from './services/geminiService';
 
 const App: React.FC = () => {
   // --- Auth State ---
+  const [isPro, setIsPro] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userEmail, setUserEmail] = useState<string>('');
+  const [loadingAuth, setLoadingAuth] = useState(true);
   const [apiKey, setApiKey] = useState('');
 
   // Settings
@@ -40,6 +49,10 @@ const App: React.FC = () => {
   const [history, setHistory] = useState<HistoryRecord[]>([]);
   const [hasSelectedLanguage, setHasSelectedLanguage] = useState<boolean>(false);
 
+  // 使用次數
+  const [showExhaustedModal, setShowExhaustedModal] = useState(false);
+  const [showPaywall, setShowPaywall] = useState(false);
+
   // 🌓 深色/淺色模式
   const [isDarkMode, setIsDarkMode] = useState(true);
 
@@ -47,6 +60,7 @@ const App: React.FC = () => {
   const [showSaveMenuModal, setShowSaveMenuModal] = useState(false);
   const [pendingMenuThumbnail, setPendingMenuThumbnail] = useState<string>('');
   const [showPhrases, setShowPhrases] = useState(false);
+  const [showOnboarding, setShowOnboarding] = useState(false);
 
   // ⭐ 逐頁處理進度
   const [processingPage, setProcessingPage] = useState(0);
@@ -60,11 +74,22 @@ const App: React.FC = () => {
     updateMenuName,
     getStorageSize,
     menuCount
-  } = useMenuLibrary('local');
+  } = useMenuLibrary(userEmail);
+
+  // ⭐ 使用次數限制 Hook
+  const { usageCount, remainingUses, canUse, isUnlimited, incrementUsage, dailyLimit } = useUsageLimit(isPro);
 
   // --- Init (Load from LocalStorage) ---
   useEffect(() => {
-    // Settings Persistence
+    // 🔓 No-login mode: always treat as logged-in PRO user
+    setIsLoggedIn(true);
+    setIsPro(true);
+    setUserEmail('local@user.com');
+
+    // 2. 檢查是否為 PRO（保留，確保 PRO 狀態）
+    const savedIsPro = true; // 永遠是 PRO
+
+    // 3. Settings Persistence
     setTaxRate(Number(localStorage.getItem('tax_rate')) || 0);
     setServiceRate(Number(localStorage.getItem('service_rate')) || 0);
     setHidePrice(localStorage.getItem('hide_price') === 'true');
@@ -101,7 +126,13 @@ const App: React.FC = () => {
       setApiKey(savedApiKey);
     }
 
-    // History Persistence
+    // 5. 檢查是否需要顯示新手引導
+    const hasSeenOnboarding = localStorage.getItem('has_seen_onboarding') === 'true';
+    if (hasSelectedLang && !hasSeenOnboarding) {
+      setShowOnboarding(true);
+    }
+
+    // 5. History Persistence
     const savedHistory = localStorage.getItem('order_history');
     if (savedHistory) {
       try {
@@ -111,11 +142,13 @@ const App: React.FC = () => {
       }
     }
 
-    // 載入主題偏好
+    // 6. 載入主題偏好
     const savedTheme = localStorage.getItem('smp_theme');
     if (savedTheme === 'light') {
       setIsDarkMode(false);
     }
+
+    setLoadingAuth(false);
   }, []);
 
   // --- 主題切換 ---
@@ -125,6 +158,53 @@ const App: React.FC = () => {
   }, [isDarkMode]);
 
   const toggleTheme = () => setIsDarkMode(prev => !prev);
+  // --- Handlers ---
+  const handleGoogleAuthSuccess = (user: GoogleUser) => {
+    setIsLoggedIn(true);
+    setUserEmail(user.email);
+    setIsPro(user.isPro);
+
+    if (user.isPro) {
+      localStorage.setItem('is_pro', 'true');
+    }
+  };
+
+  const handleLogout = async () => {
+    try {
+      // @ts-ignore
+      const isNative = typeof window !== 'undefined' && window.Capacitor?.isNativePlatform?.();
+      if (isNative) {
+        const { GoogleAuth } = await import('@codetrix-studio/capacitor-google-auth');
+        await GoogleAuth.initialize({
+          clientId: '708202943885-rev2dlrdaivfqavra8rc1q2u79o0vaht.apps.googleusercontent.com',
+          scopes: ['profile', 'email'],
+          grantOfflineAccess: true,
+        });
+        await GoogleAuth.signOut();
+      }
+    } catch (e) {
+      console.log('Google Auth signout error or already signed out', e);
+    }
+
+    // 清除所有的本地緩存
+    localStorage.removeItem('is_pro');
+    localStorage.removeItem('google_user');
+    localStorage.removeItem('smp_user_email');
+    localStorage.removeItem('gemini_api_key');
+
+    // 重置應用狀態
+    setIsPro(false);
+    setIsLoggedIn(false);
+    setUserEmail('');
+    setApiKey('');
+
+    toast.success('已登出 / Logged out');
+
+    // 強制重整以確保所有閘門 (Gate) 重新驗證，徹底清除殘留的記憶狀態
+    setTimeout(() => {
+      window.location.reload();
+    }, 500);
+  };
 
   // --- Helper Functions ---
   const compressImage = (file: File): Promise<string> => {
@@ -188,6 +268,12 @@ const App: React.FC = () => {
       return;
     }
 
+    // ⭐ 檢查使用次數限制
+    if (!canUse && !isPro) {
+      setShowPaywall(true); // 直上付費牆
+      return;
+    }
+
     const filesToProcess = files.slice(0, 8); // 逐頁處理支援更多頁
 
     const toastId = toast.loading("Acquiring GPS Location...");
@@ -238,6 +324,18 @@ const App: React.FC = () => {
         setMenuData(data);
         setCart({});
         setCurrentView('ordering');
+      }
+
+      // ⭐ 成功後增加使用次數
+      incrementUsage();
+
+      // ⭐ 同步到伺服器 (如果有 email)
+      if (userEmail) {
+        fetch('/api/check-usage', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: userEmail, action: 'increment' })
+        }).catch(err => console.warn('Failed to sync usage:', err));
       }
 
       // ⭐ 儲存縮略圖並顯示儲存對話框
@@ -340,10 +438,19 @@ const App: React.FC = () => {
 
   // --- RENDER GATES ---
 
+  // 0. Loading State
+  if (loadingAuth) {
+    return (
+      <div className="h-screen flex items-center justify-center" style={{ background: 'var(--bg-primary)' }}>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500"></div>
+      </div>
+    );
+  }
+
   // 1. 語言選擇閘門
   if (!hasSelectedLanguage) {
     return (
-      <div className="h-screen w-full overflow-hidden" style={{ background: 'var(--bg-primary)' }}>
+      <div className="h-screen w-full bg-gradient-to-b from-amber-50 to-orange-50 font-sans text-gray-900 overflow-hidden">
         <Toaster position="top-center" />
         <LanguageGate
           onSelectLanguage={(lang) => {
@@ -351,16 +458,19 @@ const App: React.FC = () => {
             setHasSelectedLanguage(true);
             localStorage.setItem('has_selected_language', 'true');
             localStorage.setItem('ui_language', lang);
+            setShowOnboarding(true);
           }}
         />
       </div>
     );
   }
 
-  // 2. API Key 閘門
+  // 2. Google 登入閘門 — 已移除，無需登入
+
+  // 3. API Key 閘門
   if (!apiKey) {
     return (
-      <div className="h-screen w-full overflow-hidden" style={{ background: 'var(--bg-primary)' }}>
+      <div className="h-screen w-full font-sans text-gray-900 overflow-hidden" style={{ background: 'linear-gradient(160deg, #fff7ed 0%, #fffbf5 45%, #fff3e0 100%)' }}>
         <Toaster position="top-center" />
         <ApiKeyGate
           selectedLanguage={uiLang}
@@ -385,12 +495,18 @@ const App: React.FC = () => {
               onLanguageChange={setUiLang}
               selectedLanguage={uiLang}
               onImagesSelected={handleImagesSelected}
-              onViewHistory={() => setCurrentView('history')}
-              onViewLibrary={() => setCurrentView('library')}
+              onViewHistory={() => {
+                if (isPro) setCurrentView('history');
+                else setShowPaywall(true);
+              }}
+              onViewLibrary={() => {
+                if (isPro) setCurrentView('library');
+                else setShowPaywall(true);
+              }}
               menuCount={menuCount}
               onOpenSettings={() => setIsSettingsOpen(true)}
-              isVerified={true}
-              onUpgradeClick={() => {}}
+              isVerified={isPro}
+              onUpgradeClick={() => setShowPaywall(true)}
               hidePrice={hidePrice}
               onHidePriceChange={(hide) => {
                 setHidePrice(hide);
@@ -401,12 +517,12 @@ const App: React.FC = () => {
                 setUiLang(lang);
                 localStorage.setItem('ui_language', lang);
               }}
-              onLogout={() => {}}
+              onLogout={handleLogout}
               onOpenPhrases={() => setShowPhrases(true)}
-              onOpenOnboarding={() => {}}
-              remainingUses={999}
-              dailyLimit={999}
-              isPro={true}
+              onOpenOnboarding={() => setShowOnboarding(true)}
+              remainingUses={remainingUses}
+              dailyLimit={dailyLimit}
+              isPro={isPro}
               isDarkMode={isDarkMode}
               onToggleTheme={toggleTheme}
             />
@@ -433,7 +549,6 @@ const App: React.FC = () => {
               onUpdateCart={handleUpdateCart}
               onViewSummary={() => setCurrentView('summary')}
               onBack={() => setCurrentView('welcome')}
-              onRescan={() => setCurrentView('welcome')}
               targetLang={uiLang}
               taxRate={taxRate}
               serviceRate={serviceRate}
@@ -497,13 +612,28 @@ const App: React.FC = () => {
           }}
           onClose={() => setIsSettingsOpen(false)}
           isOpen={isSettingsOpen}
-          onResetApp={() => {
-            localStorage.removeItem('gemini_api_key');
-            setApiKey('');
+          onResetApp={async () => {
+            await handleLogout();
             setIsSettingsOpen(false);
           }}
         />
       )}
+
+      {/* 💳 RevenueCat 付費牆 */}
+      <Paywall
+        isOpen={showPaywall || showExhaustedModal}
+        targetLanguage={uiLang}
+        onClose={() => {
+          setShowPaywall(false);
+          setShowExhaustedModal(false);
+        }}
+        onSuccess={() => {
+          setIsPro(true);
+          setShowPaywall(false);
+          setShowExhaustedModal(false);
+          toast.success("歡迎升級！現在您可以盡情翻譯菜單囉！");
+        }}
+      />
 
       {/* ⭐ 儲存菜單對話框 */}
       <SaveMenuModal
@@ -527,6 +657,12 @@ const App: React.FC = () => {
         userLanguage={uiLang}
       />
 
+      {/* 新手引導教學 */}
+      <Onboarding
+        isOpen={showOnboarding}
+        onComplete={() => setShowOnboarding(false)}
+        language={uiLang}
+      />
     </div>
   );
 };

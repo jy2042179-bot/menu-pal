@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { ArrowLeft, Minus, Plus, Warning, Info, Funnel, X, Check, Lightning, SpeakerHigh, ChatCircle, SquaresFour, List } from '@phosphor-icons/react';
+import { ArrowLeft, Minus, Plus, Warning, Info, Funnel, X, Check, Lightning, SpeakerHigh, ChatCircle, SquaresFour, List, Camera } from '@phosphor-icons/react';
 import { MenuItem, MenuData, Cart, TargetLanguage, CartItem, MenuOption } from '../types';
 import { explainDish } from '../services/geminiService';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -35,10 +35,11 @@ interface OrderingPageProps {
     onUpdateCart: (item: MenuItem, delta: number) => void;
     onViewSummary: () => void;
     onBack: () => void;
+    onRescan?: () => void;
     taxRate: number;
     serviceRate: number;
     hidePrice?: boolean;
-    isLoadingMore?: boolean;  // ⭐ 逐頁處理時，後續頁面仍在載入中
+    isLoadingMore?: boolean;
 }
 
 export const OrderingPage: React.FC<OrderingPageProps> = ({
@@ -48,6 +49,7 @@ export const OrderingPage: React.FC<OrderingPageProps> = ({
     onUpdateCart,
     onViewSummary,
     onBack,
+    onRescan,
     taxRate,
     serviceRate,
     hidePrice = false,
@@ -198,6 +200,14 @@ export const OrderingPage: React.FC<OrderingPageProps> = ({
                             )}
                         </div>
                     </div>
+                    {onRescan && (
+                        <button onClick={onRescan}
+                            className="p-2 rounded-xl transition-colors"
+                            style={{ background: 'var(--brand-bg)', border: '1px solid var(--glass-border)', color: 'var(--brand-primary)' }}
+                            title="重新掃描">
+                            <Camera size={20} weight="bold" />
+                        </button>
+                    )}
                     <button onClick={toggleViewMode}
                         className="p-2 rounded-xl transition-colors"
                         style={{ background: 'var(--glass-bg)', border: '1px solid var(--glass-border)', color: 'var(--text-secondary)' }}>
