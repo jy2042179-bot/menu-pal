@@ -3,8 +3,7 @@
 @tailwind utilities;
 
 /* =========================================================
-   🎨 SausageMenu Premium Design System
-   靈感來自 Spotify / Apple Music 的深色高質感風格
+   🌸 粗氣丸東京の冒険 Design System
    ========================================================= */
 
 /* =========================================================
@@ -17,65 +16,70 @@
   --sal: env(safe-area-inset-left, 0px);
   --sar: env(safe-area-inset-right, 0px);
 
-  /* 🎨 色盤 — 深色主題 (預設) */
-  --bg-primary: #0a0a0a;
-  --bg-secondary: #111111;
-  --bg-tertiary: #1a1a1a;
-  --bg-card: #1e1e1e;
-  --bg-card-hover: #252525;
-  --bg-elevated: #2a2a2a;
+  /* 🎨 色盤 — 亮色主題（預設）*/
+  --bg-primary: #FFF0F5;
+  --bg-secondary: #FFE4EE;
+  --bg-tertiary: #ffffff;
+  --bg-card: #FFFCFC;
+  --bg-card-hover: #FFF0F5;
+  --bg-elevated: #FFE4EE;
 
   /* 文字 */
-  --text-primary: #ffffff;
-  --text-secondary: #b3b3b3;
-  --text-tertiary: #727272;
-  --text-muted: #535353;
+  --text-primary: #44403c;
+  --text-secondary: #78716c;
+  --text-tertiary: #a8a29e;
+  --text-muted: #d6d3d1;
 
-  /* 品牌色 — 溫暖橘 */
-  --brand-primary: #ff6b2b;
-  --brand-secondary: #ff8f5e;
-  --brand-glow: rgba(255, 107, 43, 0.25);
-  --brand-gradient: linear-gradient(135deg, #ff6b2b 0%, #ff9a5c 50%, #ffb347 100%);
-  --brand-gradient-dark: linear-gradient(135deg, #e85d26 0%, #ff6b2b 100%);
+  /* 品牌色 — 粉紅 */
+  --brand-primary: #ec4899;
+  --brand-secondary: #e879f9;
+  --brand-glow: rgba(236, 72, 153, 0.25);
+  --brand-gradient: linear-gradient(135deg, #ec4899 0%, #d946ef 100%);
+  --header-gradient: linear-gradient(135deg, #ec4899 0%, #c084fc 100%);
 
-  /* 強調色 */
-  --accent-green: #1ed760;
-  --accent-blue: #4d8bf5;
-  --accent-purple: #8b5cf6;
+  /* 功能色 */
+  --accent-amber: #f59e0b;
+  --accent-pink: #ec4899;
+  --accent-purple: #a855f7;
+  --accent-blue: #60a5fa;
   --accent-red: #ef4444;
-  --accent-gold: #fbbf24;
+  --accent-green: #86efac;
+  --accent-syncing: #f472b6;
+  --accent-offline: #d6d3d1;
 
   /* 玻璃效果 */
-  --glass-bg: rgba(255, 255, 255, 0.05);
-  --glass-border: rgba(255, 255, 255, 0.08);
-  --glass-shine: rgba(255, 255, 255, 0.12);
+  --glass-bg: rgba(255, 255, 255, 0.6);
+  --glass-border: rgba(236, 72, 153, 0.12);
+  --glass-shine: rgba(255, 255, 255, 0.8);
 
   /* 元件用色 */
-  --header-bg: rgba(10, 10, 10, 0.85);
-  --input-bg: #0a0a0a;
-  --border-input: rgba(255, 255, 255, 0.1);
-  --overlay-bg: rgba(0, 0, 0, 0.7);
-  --brand-bg: rgba(255, 107, 43, 0.08);
-  --brand-bg-light: rgba(255, 107, 43, 0.06);
-  --info-bg: rgba(77, 139, 245, 0.08);
-  --info-color: #4d8bf5;
+  --header-bg: rgba(255, 240, 245, 0.85);
+  --input-bg: #f9fafb;
+  --border-input: #fce7f3;
+  --overlay-bg: rgba(26, 16, 22, 0.5);
+  --brand-bg: rgba(236, 72, 153, 0.06);
+  --brand-bg-light: rgba(236, 72, 153, 0.04);
+  --info-bg: rgba(96, 165, 250, 0.08);
+  --info-color: #3b82f6;
   --danger-bg: rgba(239, 68, 68, 0.08);
   --danger-color: #ef4444;
-  --card-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+  --card-shadow: 0 4px 20px rgba(236, 72, 153, 0.08);
 
   /* 陰影 */
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
-  --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.6);
+  --shadow-sm: 0 1px 4px rgba(236, 72, 153, 0.08);
+  --shadow-md: 0 4px 12px rgba(236, 72, 153, 0.12);
+  --shadow-lg: 0 8px 24px rgba(236, 72, 153, 0.16);
+  --shadow-xl: 0 16px 48px rgba(236, 72, 153, 0.2);
+  --shadow-pink: 0 4px 16px rgba(236, 72, 153, 0.2);
   --shadow-glow: 0 0 40px var(--brand-glow);
 
   /* 圓角 */
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 16px;
-  --radius-xl: 24px;
-  --radius-2xl: 32px;
+  --radius-xl: 20px;
+  --radius-2xl: 24px;
+  --radius-3xl: 32px;
   --radius-full: 9999px;
 
   /* 轉場 */
@@ -83,47 +87,45 @@
   --transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-slow: 400ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-spring: 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  --transition-bounce: 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 /* =========================================================
-   ☀️ 淺色主題覆蓋
+   🌙 深色主題 — 夜櫻模式
    ========================================================= */
-[data-theme="light"] {
-  --bg-primary: #f8f5f0;
-  --bg-secondary: #f0ebe4;
-  --bg-tertiary: #ffffff;
-  --bg-card: #ffffff;
-  --bg-card-hover: #f5f5f5;
-  --bg-elevated: #e8e2da;
+[data-theme="dark"],
+.dark {
+  --bg-primary: #1a1016;
+  --bg-secondary: #211519;
+  --bg-tertiary: #2d1f26;
+  --bg-card: #2d1f26;
+  --bg-card-hover: #3d2a33;
+  --bg-elevated: #3d2a33;
 
-  --text-primary: #1a1a1a;
-  --text-secondary: #6b7280;
-  --text-tertiary: #9ca3af;
-  --text-muted: #d1d5db;
+  --text-primary: #fce7f3;
+  --text-secondary: #f9a8d4;
+  --text-tertiary: #e879f9;
+  --text-muted: #9d4469;
 
-  --brand-glow: rgba(255, 107, 43, 0.15);
+  --brand-glow: rgba(236, 72, 153, 0.35);
+  --header-gradient: linear-gradient(135deg, #831843 0%, #4a044e 100%);
 
-  --glass-bg: rgba(0, 0, 0, 0.03);
-  --glass-border: rgba(0, 0, 0, 0.08);
-  --glass-shine: rgba(0, 0, 0, 0.06);
+  --glass-bg: rgba(45, 31, 38, 0.7);
+  --glass-border: rgba(236, 72, 153, 0.2);
+  --glass-shine: rgba(252, 231, 243, 0.08);
 
-  --header-bg: rgba(248, 245, 240, 0.85);
-  --input-bg: #f0ebe4;
-  --border-input: rgba(0, 0, 0, 0.12);
-  --overlay-bg: rgba(0, 0, 0, 0.4);
-  --brand-bg: rgba(255, 107, 43, 0.06);
-  --brand-bg-light: rgba(255, 107, 43, 0.04);
-  --info-bg: rgba(77, 139, 245, 0.06);
-  --info-color: #3b7ce0;
-  --danger-bg: rgba(239, 68, 68, 0.06);
-  --danger-color: #dc2626;
-  --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  --header-bg: rgba(26, 16, 22, 0.9);
+  --input-bg: #2d1f26;
+  --border-input: rgba(236, 72, 153, 0.25);
+  --overlay-bg: rgba(10, 5, 8, 0.7);
+  --brand-bg: rgba(236, 72, 153, 0.12);
+  --brand-bg-light: rgba(236, 72, 153, 0.08);
+  --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
 
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
-  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
-  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.1);
-  --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.12);
-  --shadow-glow: 0 0 30px var(--brand-glow);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+  --shadow-pink: 0 4px 16px rgba(236, 72, 153, 0.3);
 }
 
 /* =========================================================
@@ -135,7 +137,7 @@ html {
 }
 
 body {
-  font-family: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: 'Noto Sans TC', 'Noto Sans JP', sans-serif;
   background: var(--bg-primary);
   color: var(--text-primary);
   padding-top: var(--sat);
@@ -159,7 +161,7 @@ textarea {
 }
 
 /* =========================================================
-   🎭 Premium 組件樣式
+   🎭 元件樣式
    ========================================================= */
 
 /* 玻璃卡片 */
@@ -168,29 +170,21 @@ textarea {
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid var(--glass-border);
-  border-radius: var(--radius-xl);
+  border-radius: var(--radius-2xl);
 }
 
-.glass-card-strong {
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(40px);
-  -webkit-backdrop-filter: blur(40px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: var(--radius-xl);
-}
-
-/* 品牌漸變按鈕 */
+/* 粉色漸層按鈕 */
 .btn-brand {
   background: var(--brand-gradient);
   color: white;
   font-weight: 700;
   border: none;
-  border-radius: var(--radius-full);
+  border-radius: var(--radius-xl);
   padding: 14px 32px;
   font-size: 16px;
   cursor: pointer;
   transition: all var(--transition-normal);
-  box-shadow: 0 4px 16px var(--brand-glow);
+  box-shadow: var(--shadow-pink);
   position: relative;
   overflow: hidden;
 }
@@ -205,20 +199,20 @@ textarea {
 
 .btn-brand:hover {
   transform: translateY(-1px);
-  box-shadow: 0 6px 24px var(--brand-glow);
+  box-shadow: var(--shadow-lg);
 }
 
 .btn-brand:active {
-  transform: scale(0.97);
+  transform: scale(0.95);
 }
 
 /* 次要按鈕 */
 .btn-secondary {
-  background: var(--bg-card);
-  color: var(--text-primary);
+  background: white;
+  color: var(--brand-primary);
   font-weight: 600;
-  border: 1px solid var(--glass-border);
-  border-radius: var(--radius-full);
+  border: 2px solid var(--brand-primary);
+  border-radius: var(--radius-xl);
   padding: 12px 24px;
   font-size: 15px;
   cursor: pointer;
@@ -226,19 +220,18 @@ textarea {
 }
 
 .btn-secondary:hover {
-  background: var(--bg-card-hover);
-  border-color: var(--glass-shine);
+  background: var(--brand-bg);
 }
 
 .btn-secondary:active {
-  transform: scale(0.97);
+  transform: scale(0.95);
 }
 
 /* 圖標按鈕 */
 .btn-icon {
   width: 44px;
   height: 44px;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-lg);
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);
   color: var(--text-secondary);
@@ -250,36 +243,47 @@ textarea {
 }
 
 .btn-icon:hover {
-  background: var(--glass-shine);
-  color: var(--text-primary);
+  background: var(--brand-bg);
+  color: var(--brand-primary);
 }
 
 /* =========================================================
-   🏷️ 標籤和 Badge
+   🏷️ Badge
    ========================================================= */
 .badge-pro {
-  background: linear-gradient(135deg, #ff6b2b, #ffb347);
+  background: var(--brand-gradient);
   color: white;
   font-size: 11px;
   font-weight: 800;
   letter-spacing: 0.5px;
-  padding: 4px 12px;
+  padding: 3px 10px;
   border-radius: var(--radius-full);
   text-transform: uppercase;
 }
 
 .badge-free {
-  background: rgba(30, 215, 96, 0.15);
-  color: var(--accent-green);
+  background: rgba(134, 239, 172, 0.15);
+  color: #16a34a;
   font-size: 11px;
   font-weight: 700;
-  padding: 4px 12px;
+  padding: 3px 10px;
   border-radius: var(--radius-full);
-  border: 1px solid rgba(30, 215, 96, 0.2);
+  border: 1px solid rgba(134, 239, 172, 0.3);
 }
 
+/* sausage 色票向後相容 */
+.bg-sausage-50 { background-color: var(--bg-primary) !important; }
+.text-sausage-900 { color: var(--text-primary) !important; }
+.text-sausage-800 { color: var(--text-secondary) !important; }
+.text-sausage-700 { color: var(--text-secondary) !important; }
+.text-sausage-600 { color: var(--brand-primary) !important; }
+.bg-sausage-600 { background-color: var(--brand-primary) !important; }
+.border-sausage-100 { border-color: var(--glass-border) !important; }
+.border-sausage-200 { border-color: var(--glass-border) !important; }
+.border-sausage-300 { border-color: rgba(236, 72, 153, 0.2) !important; }
+
 /* =========================================================
-   🔄 切換開關
+   🔄 Toggle
    ========================================================= */
 .toggle-track {
   width: 48px;
@@ -301,7 +305,7 @@ textarea {
   border-radius: 50%;
   background: white;
   transition: transform var(--transition-fast);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
 }
 
 .toggle-track.active .toggle-thumb {
@@ -309,156 +313,141 @@ textarea {
 }
 
 /* =========================================================
-   📱 Safe Area 支援
+   📱 Safe Area
    ========================================================= */
-.safe-area-top {
-  padding-top: var(--sat);
-}
-
-.safe-area-bottom {
-  padding-bottom: var(--sab);
-}
-
+.safe-area-top { padding-top: var(--sat); }
+.safe-area-bottom { padding-bottom: var(--sab); }
 .safe-area-all {
   padding-top: var(--sat);
   padding-bottom: var(--sab);
   padding-left: var(--sal);
   padding-right: var(--sar);
 }
-
 .status-bar-spacer {
   height: var(--sat);
   min-height: 20px;
 }
 
 /* =========================================================
-   📜 自定義滾動條
+   📜 滾動條
    ========================================================= */
-.hide-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-
+.hide-scrollbar::-webkit-scrollbar { display: none; }
 .hide-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
 
-/* 細長滾動條 */
-::-webkit-scrollbar {
-  width: 4px;
-}
-
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb {
-  background: var(--text-muted);
+  background: #f9a8d4;
   border-radius: 2px;
 }
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--text-tertiary);
-}
+::-webkit-scrollbar-thumb:hover { background: #ec4899; }
 
 /* =========================================================
    🔄 動畫
    ========================================================= */
-@keyframes pulse-ring {
-  0% {
-    transform: scale(0.8);
-    opacity: 0.8;
-  }
 
+/* 頁面入場 */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.35s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Modal contract 動畫 */
+@keyframes contract-in {
+  from {
+    opacity: 0;
+    transform: scale(0.85) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.animate-contract {
+  animation: contract-in 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* Sidebar 左滑入 */
+@keyframes slide-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-slide-in-left {
+  animation: slide-in-left 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* 粉色脈衝（同步中） */
+@keyframes pulse-pink {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(244, 114, 182, 0.4);
+  }
   50% {
-    transform: scale(1);
-    opacity: 0.4;
-  }
-
-  100% {
-    transform: scale(0.8);
-    opacity: 0.8;
+    box-shadow: 0 0 0 8px rgba(244, 114, 182, 0);
   }
 }
 
-.animate-pulse-ring {
-  animation: pulse-ring 1.5s ease-in-out infinite;
+.animate-pulse-pink {
+  animation: pulse-pink 1.5s ease-in-out infinite;
 }
 
+/* 長按進度條 */
+@keyframes progress-bar {
+  from { width: 0%; }
+  to { width: 100%; }
+}
+
+.animate-progress {
+  animation: progress-bar var(--hold-duration, 800ms) linear forwards;
+}
+
+/* shimmer skeleton */
 @keyframes shimmer {
-  0% {
-    background-position: -200% 0;
-  }
-
-  100% {
-    background-position: 200% 0;
-  }
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
 }
 
 .animate-shimmer {
   background: linear-gradient(90deg,
-      var(--bg-card) 25%,
-      var(--bg-card-hover) 50%,
-      var(--bg-card) 75%);
+    var(--bg-card) 25%,
+    var(--bg-card-hover) 50%,
+    var(--bg-card) 75%);
   background-size: 200% 100%;
   animation: shimmer 2s ease-in-out infinite;
 }
 
+/* float */
 @keyframes float {
-
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(-10px);
-  }
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
 }
 
 .animate-float {
   animation: float 3s ease-in-out infinite;
 }
 
-@keyframes glow-pulse {
-
-  0%,
-  100% {
-    box-shadow: 0 0 20px var(--brand-glow);
-  }
-
-  50% {
-    box-shadow: 0 0 40px var(--brand-glow), 0 0 60px rgba(255, 107, 43, 0.15);
-  }
-}
-
-.animate-glow {
-  animation: glow-pulse 2s ease-in-out infinite;
-}
-
-/* 粒子效果背景 */
-@keyframes particle-drift {
-  0% {
-    transform: translateY(0) translateX(0);
-    opacity: 0;
-  }
-
-  10% {
-    opacity: 0.6;
-  }
-
-  90% {
-    opacity: 0.6;
-  }
-
-  100% {
-    transform: translateY(-100vh) translateX(20px);
-    opacity: 0;
-  }
-}
-
 /* =========================================================
-   🌐 離線狀態提示
+   🌐 離線提示
    ========================================================= */
 .offline-banner {
   position: fixed;
@@ -466,7 +455,7 @@ textarea {
   left: 0;
   right: 0;
   z-index: 9999;
-  background: linear-gradient(135deg, var(--accent-red) 0%, #dc2626 100%);
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
   color: white;
   text-align: center;
   padding: 12px 16px;
@@ -480,7 +469,7 @@ textarea {
 }
 
 /* =========================================================
-   📊 使用次數
+   📊 使用次數 badge
    ========================================================= */
 .usage-badge {
   background: var(--brand-gradient);
@@ -492,49 +481,10 @@ textarea {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  box-shadow: 0 2px 8px var(--brand-glow);
+  box-shadow: var(--shadow-pink);
 }
 
 .usage-badge.exhausted {
   background: linear-gradient(135deg, #4b5563, #374151);
-  box-shadow: 0 2px 8px rgba(75, 85, 99, 0.3);
-}
-
-/* =========================================================
-   🎯 Tailwind Overrides for Dark Theme
-   ========================================================= */
-.bg-sausage-50 {
-  background-color: var(--bg-primary) !important;
-}
-
-.text-sausage-900 {
-  color: var(--text-primary) !important;
-}
-
-.text-sausage-800 {
-  color: var(--text-secondary) !important;
-}
-
-.text-sausage-700 {
-  color: var(--text-secondary) !important;
-}
-
-.text-sausage-600 {
-  color: var(--brand-primary) !important;
-}
-
-.bg-sausage-600 {
-  background-color: var(--brand-primary) !important;
-}
-
-.border-sausage-100 {
-  border-color: var(--glass-border) !important;
-}
-
-.border-sausage-200 {
-  border-color: var(--glass-border) !important;
-}
-
-.border-sausage-300 {
-  border-color: rgba(255, 255, 255, 0.15) !important;
+  box-shadow: none;
 }

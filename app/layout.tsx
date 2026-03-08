@@ -1,8 +1,20 @@
 import type { Metadata, Viewport } from 'next';
-import { Inter } from 'next/font/google';
+import { Noto_Sans_TC, Noto_Sans_JP } from 'next/font/google';
 import './globals.css';
 
-const inter = Inter({ subsets: ['latin'], weight: ['400', '500', '600', '700', '800', '900'] });
+const notoSansTC = Noto_Sans_TC({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '700'],
+  variable: '--font-noto-tc',
+  display: 'swap',
+});
+
+const notoSansJP = Noto_Sans_JP({
+  subsets: ['latin'],
+  weight: ['400', '500', '700', '900'],
+  variable: '--font-noto-jp',
+  display: 'swap',
+});
 
 // =========================================================
 // 📱 1. 視口與主題設定 (PWA 與行動裝置最佳化)
@@ -13,7 +25,7 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
-  themeColor: '#ea580c',
+  themeColor: '#ec4899',
   // 🔧 Capacitor Safe Area 支援
   viewportFit: 'cover',
 };
@@ -81,10 +93,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {/* Phosphor Icons 圖標庫 (保持不變) */}
         <script src="https://unpkg.com/@phosphor-icons/web" async></script>
       </head>
-      <body className={`${inter.className} antialiased h-screen`}>
+      <body className={`${notoSansTC.variable} ${notoSansJP.variable} font-sans antialiased h-screen`}>
 
         <div id="root" className="h-full w-full">
           {children}
