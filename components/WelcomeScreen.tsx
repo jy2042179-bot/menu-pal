@@ -500,6 +500,6 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({
                 </>,
                 document.body
             )}
-
+        </div>
     );
 };
