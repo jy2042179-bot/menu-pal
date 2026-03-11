@@ -256,8 +256,6 @@ export const OrderSummary: React.FC<OrderSummaryProps> = ({
                 </div>
             </div>
 
-            {/* 廣告彈窗 */}
-            <AdPopup isOpen={showAd} onClose={handleAdClose} />
         </div>
     );
 };
